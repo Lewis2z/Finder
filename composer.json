@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-0": {"Finder": "App/"}
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
+}
