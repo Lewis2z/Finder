@@ -16,12 +16,17 @@ class SearchResultTest extends TestCase
         $query = "extraterrestrials traveling on reduced fuel through self-miniaturization"; // This is an extract from the test file
         $query = $stopwords->removeFromString($query);
 
+		// Split the query into words for a word count
+		$query_split = explode(" ", $query);
+		// Get the word combinations
+		$combinations = \Finder\Strings::getWordCombinations(strtolower($query), count($query_split));
+
         // Boost Factor 1 test
-        $search_result->evaluate($query, $index_item, 1);
+        $search_result->evaluate($combinations, $index_item, 1);
         $this->assertEquals($search_result->score, 31);
 
         // Boost Factor 5 test
-        $search_result->evaluate($query, $index_item, 5); // Having a higher boost factor can increase the score and relevancy
+        $search_result->evaluate($combinations, $index_item, 5); // Having a higher boost factor can increase the score and relevancy
         $this->assertEquals($search_result->score, 166);
 
     }
@@ -39,12 +44,17 @@ class SearchResultTest extends TestCase
         $query = "extraterrestrials traveling on reduced fuel through self-miniaturization"; // This is an extract from the test file
         $query = $stopwords->removeFromString($query);
 
+		// Split the query into words for a word count
+		$query_split = explode(" ", $query);
+		// Get the word combinations
+		$combinations = \Finder\Strings::getWordCombinations(strtolower($query), count($query_split));
+
         // Boost Factor 1 test
-        $search_result->evaluate($query, $index_item, 1);
+        $search_result->evaluate($combinations, $index_item, 1);
         $this->assertEquals($search_result->score, 75);
 
         // Boost Factor 5 test
-        $search_result->evaluate($query, $index_item, 5); // Having a higher boost factor can increase the score and relevancy
+        $search_result->evaluate($combinations, $index_item, 5); // Having a higher boost factor can increase the score and relevancy
         $this->assertEquals($search_result->score, 430);
 
     }

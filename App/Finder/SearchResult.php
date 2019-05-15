@@ -41,23 +41,18 @@ class SearchResult
 	/**
 	 * evaluate
 	 * This calculates the query's score againsed the index item
-	 * @param string $query
+	 * @param array $query_word_combinations
 	 * @param IndexItem $index_item
 	 * @param int $word_combination_boost_factor
 	 * @return void
 	 */
-	public function evaluate(string $query, IndexItem $index_item, int $word_combination_boost_factor = 1) : void {
+	public function evaluate(array $query_word_combinations, IndexItem $index_item, int $word_combination_boost_factor = 1) : void {
 
 		// Store the filename for reference
 		$this->filename = basename($index_item->file_path);
 
 		// calculate the score
-		
-		$query_split = explode(" ", $query);
-
-		$combinations = Strings::getWordCombinations(strtolower($query), count($query_split));
-
-		foreach($combinations as $multiplier => $set) {
+		foreach($query_word_combinations as $multiplier => $set) {
 
 			if (isset($index_item->content_index[$multiplier])) {
 

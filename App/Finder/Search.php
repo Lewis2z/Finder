@@ -54,11 +54,16 @@ class Search
 	 * @return void
 	 */
 	public function go(string $query) : void {
+		
+		// Split the query into words for a word count
+		$query_split = explode(" ", $query);
+		// Get the word combinations
+		$combinations = Strings::getWordCombinations(strtolower($query), count($query_split));
 
 		$results_list = array();
 		foreach($this->indexes as $index) {
 			$result = new SearchResult();
-			$result->evaluate($query, $index, $this->word_combination_boost_factor);
+			$result->evaluate($combinations, $index, $this->word_combination_boost_factor);
 
 			$results_list[] = $result;
 		}
